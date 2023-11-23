@@ -1,4 +1,4 @@
-const todosArr = JSON.parse(localStorage.getItem("lastSave")) || [];
+let todosArr = JSON.parse(localStorage.getItem("lastSave")) || [];
 let count = 0;
 const newToDo = document.querySelector("#inputField");
 let filter = "all";
@@ -10,7 +10,11 @@ function addToDo(event) {
   count++;
 
   if (checkDuplis()) {
-    todosArr.push({ description: newToDo.value, done: false, id: "t" + count });
+    todosArr.push({
+      description: newToDo.value,
+      done: false,
+      id: createID("id_"),
+    });
     newToDo.value = "";
   }
 
@@ -26,7 +30,7 @@ function renderToDos() {
     const ListElement = document.createElement("li");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.checked = ObjOfArr.done;
+    checkbox.id = checkbox.checked = ObjOfArr.done;
     checkbox.Obj = ObjOfArr;
 
     if (ObjOfArr.done) {
@@ -64,6 +68,12 @@ function doneTask(event) {
   localStorage.setItem("lastSave", JSON.stringify(todosArr));
 }
 
+function createID(text) {
+  return (
+    text.replaceAll(" ", "").toLowerCase() + Math.floor(Math.random() * 100000)
+  );
+}
+
 const addBtn = document.querySelector("#addTodo");
 addBtn.addEventListener("click", addToDo);
 
@@ -95,12 +105,10 @@ function useFilter(event) {
   renderToDos();
 }
 
-const removeBtn = document.querySelector("#removeBtn");
+const rmvBtn = document.querySelector("#removeBtn");
 removeBtn.addEventListener("click", deleteTodo);
 
-/*
 function deleteTodo() {
-  todosArr = todosArr.filter;
+  todosArr = todosArr.filter((todoitem) => !todoitem.done);
   renderToDos();
 }
-*/
