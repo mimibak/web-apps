@@ -30,7 +30,7 @@ function renderToDos() {
     const ListElement = document.createElement("li");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.id = checkbox.checked = ObjOfArr.done;
+    checkbox.checked = ObjOfArr.done;
     checkbox.Obj = ObjOfArr;
 
     if (ObjOfArr.done) {
